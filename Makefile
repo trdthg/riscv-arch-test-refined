@@ -1,14 +1,11 @@
 ACT_DIR = $(abspath ./riscv-arch-test)
 
-.PHONY: coverage ctg
-
-ACT_DIR = $(abspath ./riscv-arch-test)
-
 rv32i-ctg:
-	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/i/rv32i.cgf -bi rv32i -p1 --randomize
+	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/i/rv32i.cgf -bi rv32i -p$(shell nproc)
 
+.PHONY: rv64i-ctg
 rv64i-ctg:
-	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/i/rv64i.cgf -bi rv64i
+	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/i/rv64i.cgf -bi rv64i -p$(shell nproc)
 
 rv64i-coverage:
 	cd riscof-plugins/rv64 \
@@ -34,7 +31,7 @@ rv32i-run:
 		--env=$(ACT_DIR)/riscv-test-suite/env
 
 zalasr-ctg:
-	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/zalasr/rv32zalasr.cgf -bi rv32i
+	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/zalasr/rv32zalasr.cgf -bi rv32i -p$(shell nproc)
 
 zilsd-run:
 	cd riscof-plugins/rv32_zilsd \
@@ -43,10 +40,10 @@ zilsd-run:
 		--env=$(ACT_DIR)/riscv-test-suite/env
 
 zilsd-ctg:
-	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/zilsd/rv32zilsd.cgf -bi rv32i
+	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/zilsd/rv32zilsd.cgf -bi rv32i -p$(shell nproc)
 
 zilsd_priv-ctg:
-	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/zilsd/rv32zilsd_priv.cgf -bi rv32i
+	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/zilsd/rv32zilsd_priv.cgf -bi rv32i -p$(shell nproc)
 
 svadu32-run:
 	cd riscof-plugins/rv32_svadu \
@@ -138,7 +135,7 @@ zfinx-ctg:
 	# cd tests && mv amocas.w-01.S amocas.q-01.S amocas.d_64-01.S $(ACT_DIR)/riscv-test-suite/rv64i_m/Zacas/src/
 
 cmo-ctg:
-	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/cmo/cbom.cgf -cf $(ACT_DIR)/coverage/cmo/cbop.cgf -cf $(ACT_DIR)/coverage/cmo/cboz.cgf -bi rv64i
+	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/cmo/cbom.cgf -cf $(ACT_DIR)/coverage/cmo/cbop.cgf -cf $(ACT_DIR)/coverage/cmo/cboz.cgf -bi rv64i -p$(shell nproc)
 
 cmo-coverage:
 	cd riscof-plugins/rv64_cmo \
