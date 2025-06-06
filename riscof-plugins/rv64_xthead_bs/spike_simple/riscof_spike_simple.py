@@ -72,7 +72,7 @@ class spike_simple(pluginTemplate):
        # Note the march is not hardwired here, because it will change for each
        # test. Similarly the output elf name and compile macros will be assigned later in the
        # runTests function
-       self.compile_cmd = 'riscv{1}-unknown-elf-gcc -march={0} \
+       self.compile_cmd = 'riscv{1}-plctxthead-linux-gnu-gcc -march={0} \
          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g\
          -T '+self.pluginpath+'/env/link.ld\
          -I '+self.pluginpath+'/env/\
@@ -104,6 +104,7 @@ class spike_simple(pluginTemplate):
           self.isa += 'd'
       if "C" in ispec["ISA"]:
           self.isa += 'c'
+      self.isa += "_xtheadbs"
 
       #TODO: The following assumes you are using the riscv-gcc toolchain. If
       #      not please change appropriately

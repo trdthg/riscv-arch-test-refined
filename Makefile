@@ -1,4 +1,6 @@
-ACT_DIR = $(abspath ./riscv-arch-test)
+ACT_DIR = $(abspath ../riscv-arch-test)
+rv64i-ctg:
+	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/i/rv64i.cgf -bi rv64i -p$(shell nproc)
 
 rv32i-ctg:
 	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/i/rv32i.cgf -bi rv32i -p$(shell nproc)
@@ -27,6 +29,32 @@ rv64i-run:
 rv32i-run:
 	cd riscof-plugins/rv32 \
 	&& time riscof run --config=config.ini \
+		--suite=$(ACT_DIR)/riscv-test-suite/ \
+		--env=$(ACT_DIR)/riscv-test-suite/env
+
+thtst-ctg:
+	riscv_ctg -v debug -d $(ACT_DIR)/tests/ \
+		-cf $(ACT_DIR)/coverage/dataset.cgf \
+		-cf $(ACT_DIR)/coverage/xthead/bs.cgf \         
+		-bi rv64i -p$(shell nproc)
+
+thtst-coverage:
+	cd riscof-plugins/rv64_xthead_bs \
+	&& time riscof coverage --config=config.ini \
+		--filter=XTheadBs \
+		--suite=$(ACT_DIR)/riscv-test-suite/ \
+		--env=$(ACT_DIR)/riscv-test-suite/env \
+		--no-browser \
+		--cgf-file=$(ACT_DIR)/coverage/dataset.cgf \
+		--cgf-file=$(ACT_DIR)/coverage/i/rv64i.cgf \
+		--cgf-file=$(ACT_DIR)/coverage/priv/rv64i_priv.cgf \
+		--cgf-file=$(ACT_DIR)/coverage/xthead/bs.cgf
+
+
+thtst-run:
+	cd riscof-plugins/rv64_xthead_bs \
+	&& time riscof run --config=config.ini \
+		--filter=XTheadBs \
 		--suite=$(ACT_DIR)/riscv-test-suite/ \
 		--env=$(ACT_DIR)/riscv-test-suite/env
 
