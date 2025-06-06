@@ -1,4 +1,4 @@
-ACT_DIR = $(abspath ../riscv-arch-test)
+ACT_DIR = $(abspath ./riscv-arch-test)
 rv64i-ctg:
 	riscv_ctg -v debug -d $(ACT_DIR)/tests/ -cf $(ACT_DIR)/coverage/dataset.cgf -cf $(ACT_DIR)/coverage/i/rv64i.cgf -bi rv64i -p$(shell nproc)
 

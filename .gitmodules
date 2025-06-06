@@ -1,0 +1,12 @@
+[submodule "riscv-arch-test"]
+	path = riscv-arch-test
+	url = ./riscv-arch-test
+[submodule "riscof"]
+	path = riscof
+	url = ./riscof
+[submodule "riscv-isa-sim"]
+	path = riscv-isa-sim
+	url = ./riscv-isa-sim
+[submodule "riscv-opcodes"]
+	path = riscv-opcodes
+	url = ./riscv-opcodes
